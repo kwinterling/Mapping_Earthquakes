@@ -19,14 +19,21 @@ let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v10/tile
 
 streets.addTo(map);
 
-// Add a map marker for Los Angeles, CA
 
-let marker = L.marker([34.0522, -118.2437]).addTo(map);
+// Load city data
+let cityData = cities;
 
-let circle1 = L.circleMarker([34.0522, -118.2437], {
-    radius: 300,
-    color: "black",
-    fillColor: "#ffffa1"
-}).addTo(map);
+// Log city names and add markers
 
+cityData.forEach(function (city) {
+    console.log(city);
+    L.circleMarker(city["location"], {
+        radius: city["population"]/200000,
+        lineweight: 4,
+        color: "#ffffa1",
+        fillColor: "#ffffa1"
+    })
+    .bindPopup("<h2>" + city.city + ", " + city.state + "</h2> <hr> <h3>Population " + city.population.toLocaleString("en-US") + "</h3>")
+    .addTo(map);
+});
 
