@@ -3,8 +3,8 @@
 
 console.log("Working");
 
-// Create the map object with center at the San Francisco airport.
-let map = L.map('mapid').setView([37.5, -122.5], 10);
+// Create the map object with center and zoom level.
+let map = L.map('mapid').setView([30, 30], 2);
 
 
 // Create tile layer
@@ -22,45 +22,7 @@ let streets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{
 
 streets.addTo(map);
 
-// Add GeoJSON data.
-let sanFranAirport =
-{
-    "type": "FeatureCollection", "features": [{
-        "type": "Feature",
-        "properties": {
-            "id": "3469",
-            "name": "San Francisco International Airport",
-            "city": "San Francisco",
-            "country": "United States",
-            "faa": "SFO",
-            "icao": "KSFO",
-            "alt": "14",
-            "tz-offset": "-8",
-            "dst": "A",
-            "tz": "America/Los_Angeles"
-        },
-        "geometry": {
-            "type": "Point",
-            "coordinates": [-122.375, 37.61899948120117]
-        }
-    }
-    ]
-};
-
-
-// Add GeoJSON
-// Grabbing our GeoJSON data.
-L.geoJSON(sanFranAirport, {
-    // We turn each feature into a marker on the map.
-    pointToLayer: function (feature, latlng) {
-        console.log(feature);
-        return L.marker(latlng);
-        //.bindPopup(`<h2>${feature.properties.name}</h2><hr /> <p>${feature.properties.city}, ${feature.properties.country}</p>`);
-    },
-    onEachFeature: function (feature, layer) {
-        console.log(layer);
-        layer.bindPopup(`<b>Airport Code: ${feature.properties.faa}</b> <hr /> <b>Airport Name: ${feature.properties.name}</b>`);
-    }
-
-}).addTo(map);
+// Accessing the airport GeoJSON URL
+let airportData = "https://raw.githubusercontent.com/kwinterling/Mapping_Earthquakes/main/static/data/majorAirports.json";
+NOTE
 
