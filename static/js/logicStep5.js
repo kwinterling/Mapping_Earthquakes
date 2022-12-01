@@ -116,7 +116,7 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
         }
     }).addTo(earthquakes);
 
-    
+
     // add earthquakes layer to map
     earthquakes.addTo(map);
 
@@ -127,9 +127,9 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
 
     legend.onAdd = function () {
 
-        var div = L.DomUtil.create('div', 'info legend'),
-        magnitudes = [0, 1, 2, 3, 4, 5],
-        colors = [
+        var div = L.DomUtil.create('div', 'info legend');
+        const magnitudes = [0, 1, 2, 3, 4, 5];
+        const colors = [
             "#98ee00",
             "#d4ee00",
             "#eecc00",
@@ -146,11 +146,12 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
                 magnitudes[i] + (magnitudes[i + 1] ? "&ndash;" + magnitudes[i + 1] + "<br>" : "+");
         }
 
+        console.log(div.innerHTML);
         return div;
     };
 
     legend.addTo(map);
 
-    
+
 });
 
