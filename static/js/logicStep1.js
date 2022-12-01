@@ -29,51 +29,22 @@ let streets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{
 
 // Create maps variable
 let baseMaps = {
-    "Satellite Streets": satelliteStreets,
+    "Satellite": satelliteStreets,
     "Streets": streets
 };
 
 // Create the map object with center, zoom level and default layer.
 let map = L.map('mapid', {
-    center: [43.7, -79.3],
-    zoom: 11,
+    center: [39.5, -98.5],
+    zoom: 3,
     layers: [streets]
 });
 
 L.control.layers(baseMaps).addTo(map);
 
-// Accessing the Toronto neighborhoods GeoJSON URL.
-// let torontoHoods = "https://raw.githubusercontent.com/<GitHub_name>/Mapping_Earthquakes/main/torontoNeighborhoods.json";
-
-let torontoHoods = "static/data/torontoNeighborhoods.json";
-
-/* d3.json(airportData).then(function (data) {
-    console.log(data);
-
-    L.geoJSON(data, {
-        pointToLayer: function (feature, latlng) {
-            console.log(feature);
-            return L.marker(latlng);
-        },
-        onEachFeature: function (feature, layer) {
-            console.log(layer);
-            layer.bindPopup(`<b>Airport Code: ${feature.properties.faa}</b> <hr /> <b>Airport Name: ${feature.properties.name}</b>`);
-        }
-    }).addTo(map);
-});
-*/
-
-d3.json(torontoHoods).then(function (data) {
-    console.log(data);
-
-    L.geoJSON(data, {
-        color: "blue",
-        fillColor: "yellow",
-        weight: 1,
-        onEachFeature: function (feature, layer) {
-            console.log(layer);
-            layer.bindPopup(`<h3>Neighborhood: ${feature.properties["AREA_NAME"]} (${feature.properties["AREA_S_CD"]})</h3>`);
-        }
-    }).addTo(map);
+// Retrieve the earthquake GeoJSON data.
+d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson").then(function (data) {
+    // Creating a GeoJSON layer with the retrieved data.
+    L.geoJSON(data).addTo(map);
 });
 
